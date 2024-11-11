@@ -2,7 +2,6 @@ import gymnasium as gym
 from stable_baselines3 import PPO
 from minesweeper_env import MinesweeperEnv
 
-
 # Load the trained PPO model
 model = PPO.load("ppo_minesweeper")  # This loads the entire model directly
 

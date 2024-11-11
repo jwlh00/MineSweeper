@@ -4,7 +4,7 @@ from stable_baselines3.common.callbacks import BaseCallback
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
-import minesweeper_env  # Ensure the custom environment is registered
+import minesweeper_env
 
 # Custom callback to collect rewards and episode lengths for plotting
 class RewardLoggerCallback(BaseCallback):
@@ -16,7 +16,7 @@ class RewardLoggerCallback(BaseCallback):
     def _on_step(self) -> bool:
         # This function is called at each training step
         # Collect episode rewards and lengths at the end of each episode
-        if self.locals["dones"][0]:  # If episode is done
+        if self.locals["dones"][0]:
             self.episode_rewards.append(self.locals["infos"][0]["episode"]["r"])
             self.episode_lengths.append(self.locals["infos"][0]["episode"]["l"])
         return True
@@ -29,7 +29,7 @@ model = PPO("MlpPolicy", env, verbose=1, n_steps=256, batch_size=64, gae_lambda=
 
 # Set up callback and progress bar for training
 callback = RewardLoggerCallback()
-timesteps = 2000000  # Define total timesteps for training
+timesteps = 2000000
 
 with tqdm(total=timesteps) as pbar:
     # Custom callback to update the progress bar
