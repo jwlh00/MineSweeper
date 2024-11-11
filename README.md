@@ -12,6 +12,7 @@ Este proyecto utiliza Deep Q-Learning (DQN) y Proximal Policy Optimization (PPO)
 - [Resultados](#resultados)
 - [Limitaciones y Mejora](#limitaciones-y-mejora)
 - [Créditos](#créditos)
+- [Video](#video)
 
 ## Descripción del Proyecto
 
@@ -102,3 +103,7 @@ El agente PPO demostró un mejor desempeño, logrando tasas de éxito entre 50-6
 ## Créditos
 
 Este proyecto fue desarrollado utilizando [Gymnasium](https://gymnasium.farama.org/) y [PyTorch](https://pytorch.org/).
+
+## Video
+
+https://youtu.be/gX90RePms9E
