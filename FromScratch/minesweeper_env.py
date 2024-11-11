@@ -45,7 +45,7 @@ class MinesweeperEnv:
 
         self._reveal_recursive(r, c)
         done = self.is_win()
-        reward = 0.1 if self.board[r, c] == 0 else 0.05
+        reward = -0.1 if self.board[r, c] == 0 else 0.1
         return self._get_state(), reward, done
 
     def _reveal_recursive(self, r, c):

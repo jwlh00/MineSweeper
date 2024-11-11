@@ -4,10 +4,8 @@ from minesweeper_env import MinesweeperEnv
 import numpy as np
 
 def simulate_games(agent, env, num_games=100):
-    """Simulate a specified number of games and return the win rate."""
     wins = 0
     for game in range(num_games):
-        print(f"\nStarting Game {game + 1}")
         state = env.reset()
         done = False
         move_count = 0  
@@ -18,19 +16,11 @@ def simulate_games(agent, env, num_games=100):
 
             state_tensor = torch.FloatTensor(state)
             row, col = agent.act(state_tensor, valid_moves, epsilon=0)  
-            
-
-            print(f"Move {move_count}: Revealing Row {row}, Column {col}")
-            
             state, reward, done = env.reveal(row, col)
-            env.display()  
 
             if done:
                 if env.is_win():
-                    print(f"Game {game + 1} won!")
                     wins += 1
-                else:
-                    print(f"Game {game + 1} lost! Hit a mine.")
                 break 
 
     win_rate = wins / num_games * 100
@@ -38,7 +28,6 @@ def simulate_games(agent, env, num_games=100):
     return win_rate
 
 def play_with_suggestions(agent, env):
-    """Allow the user to play the game with model suggestions after each move."""
     state = env.reset()
     env.display()
     print("\nLet's play! Enter row and column to reveal a cell.")

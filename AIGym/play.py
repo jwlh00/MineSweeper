@@ -2,13 +2,10 @@ import gymnasium as gym
 from stable_baselines3 import PPO
 from minesweeper_env import MinesweeperEnv
 
-# Load the trained PPO model
-model = PPO.load("ppo_minesweeper")  # This loads the entire model directly
+model = PPO.load("ppo_minesweeper")  
 
-# Set up the environment
-env = gym.make("Minesweeper-v0", board_size=5, num_mines=3)
+env = gym.make("Minesweeper-v0", board_size=5, num_mines=4)
 
-# Function to simulate 100 games and calculate win rate
 def simulate_100_games(env, model):
     wins = 0
     wins = 0
@@ -16,18 +13,18 @@ def simulate_100_games(env, model):
     for game in range(100):
         obs, _ = env.reset()
         done = False
-        step_counter = 0  # Counter to avoid infinite loops
+        step_counter = 0  
         
         while not done:
             action, _ = model.predict(obs, deterministic=True)
             obs, reward, done, _, _ = env.step(action)
             
             step_counter += 1
-            if step_counter > 1000:  # Limit the number of steps per game
+            if step_counter > 1000:  
                 break
             
             if done:
-                if reward > 0:  # Check if AI won
+                if reward > 0:
                     wins += 1
         
 
@@ -35,7 +32,6 @@ def simulate_100_games(env, model):
     print(f"Simulated 100 games.")
     print(f"Win rate: {win_rate:.2f}%")
 
-# Function to show a single game with AI's moves and outcome
 def show_single_game(env, model):
     obs, _ = env.reset()
     done = False
@@ -43,23 +39,19 @@ def show_single_game(env, model):
 
     print("Starting a new game...\n")
     while not done:
-        # AI chooses action
         action, _ = model.predict(obs, deterministic=True)
-        row, col = divmod(action, env.board_size)  # Convert action to row and col
+        row, col = divmod(action, env.board_size) 
         obs, reward, done, _, _ = env.step(action)
         total_moves += 1
 
-        # Show the chosen action and current board state
         print(f"Move {total_moves}: AI reveals cell ({row}, {col})")
-        env.render()  # Display the board state
+        env.render()  
 
-    # Display final result
     if reward > 0:
         print("\nThe AI won the game!")
     else:
         print("\nThe AI lost the game.")
 
-# Main menu
 def main_menu():
     while True:
         print("\nMinesweeper AI Menu")
@@ -78,5 +70,4 @@ def main_menu():
         else:
             print("Invalid choice. Please select 1, 2, or 3.")
 
-# Run the menu
 main_menu()

@@ -4,7 +4,6 @@ import numpy as np
 from gymnasium.envs.registration import register
 import random
 
-# Environment Definition
 class MinesweeperEnv(gym.Env):
     def __init__(self, board_size=5, num_mines=2):
         super(MinesweeperEnv, self).__init__()
@@ -14,16 +13,14 @@ class MinesweeperEnv(gym.Env):
         self.max_steps = board_size * board_size
         self.terminated = False
 
-        # Define action space and observation space
         self.action_space = spaces.Discrete(board_size * board_size)
         self.observation_space = spaces.Box(
-            low=-2,  # Updated for mines as -2, unrevealed cells as -1
+            low=-2, 
             high=8,
             shape=(board_size * board_size,),
             dtype=np.float32
         )
 
-        # Initialize board and visibility arrays
         self.board = np.zeros((board_size, board_size), dtype=np.float32)
         self.mines = np.zeros((board_size, board_size), dtype=bool)
         self.revealed = np.zeros((board_size, board_size), dtype=bool)
@@ -109,20 +106,19 @@ class MinesweeperEnv(gym.Env):
         for r in range(self.board_size):
             row_display = []
             for c in range(self.board_size):
-                if not self.revealed[r, c]:  # Closed cell
-                    # Show mines if the game is over, otherwise keep closed cells as '▢'
-                    if self.terminated and self.board[r, c] == -2:  # Reveal all mines on game end
+                if not self.revealed[r, c]: 
+                    if self.terminated and self.board[r, c] == -2:  
                         row_display.append('*')
                     else:
                         row_display.append('▢')
-                elif self.board[r, c] == -2:  # Mine that was revealed
+                elif self.board[r, c] == -2:  
                     row_display.append('*')
-                else:  # Revealed cell with a number
+                else: 
                     row_display.append(str(int(self.board[r, c])))
             display_board.append('\t'.join(row_display))
         print('\n' + '\n'.join(display_board) + '\n')
 
-# Register the environment with gymnasium
+
 register(
     id="Minesweeper-v0",
     entry_point="minesweeper_env:MinesweeperEnv",
