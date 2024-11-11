@@ -79,7 +79,7 @@ def main():
     agent = DQNAgent(state_size, action_size)
     
     try:
-        agent.model.load_state_dict(torch.load("final_model.pth"))
+        agent.model.load_state_dict(torch.load("Results/Model/150k_110424.pth"))
         agent.model.eval() 
         print("Model loaded successfully.")
     except Exception as e:
